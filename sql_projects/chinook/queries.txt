@@ -1,0 +1,144 @@
+---
+Show the name and TrackId of all songs that cost more than $0.99
+---
+
+SELECT
+	InvoiceLine."TrackId",
+	Track."Name",
+	InvoiceLine."UnitPrice"
+		FROM public."InvoiceLine" InvoiceLine
+		JOIN public."Track" Track
+			ON InvoiceLine."TrackId" = Track."TrackId"
+		WHERE InvoiceLine."UnitPrice" > 0.99
+
+---
+How many tracks are in more than one playlist
+---
+
+SELECT COUNT(sub.*)
+	FROM (
+		SELECT 
+			"TrackId",
+			COUNT ("TrackId") AS "TrackCount"
+			FROM public."PlaylistTrack"
+				GROUP BY "TrackId"
+				ORDER BY COUNT ("TrackId")
+		 ) sub
+
+---
+Which artist has the most tracks on playlists
+---
+
+SELECT 
+	"ArtistId",
+	COUNT (sub.*)
+	FROM (
+		SELECT 
+			playlist."PlaylistId",
+			track."TrackId",
+			album."ArtistId"
+		FROM public."Track" AS track
+		INNER JOIN public."PlaylistTrack" AS playlist
+			ON track."TrackId" = playlist."TrackId"
+		INNER JOIN public."Album" AS album
+			ON album."AlbumId" = track."AlbumId"
+		 ) sub
+	GROUP BY "ArtistId"
+	ORDER BY count DESC
+
+---
+Which artist has the most diverse customers
+--
+
+WITH t1 AS (
+		SELECT
+			artist."Name" AS artist_name,
+			customer."Country" AS customer_country
+				FROM public."Customer" AS customer
+					INNER JOIN public."Invoice" AS invoice
+						ON customer."CustomerId" = invoice."CustomerId"
+					INNER JOIN public."InvoiceLine" AS invoice_line
+						ON invoice."InvoiceId" = invoice_line."InvoiceId"
+					INNER JOIN public."Track" AS track
+						ON invoice_line."TrackId" = track."TrackId"
+					INNER JOIN public."Album" AS album
+						ON track."AlbumId" = album."AlbumId"
+					INNER JOIN public."Artist" AS artist
+						ON artist."ArtistId" = album."ArtistId"
+	)
+	SELECT DISTINCT * FROM t1
+	ORDER BY artist_name
+
+---
+Which customers have purchased the most tracks with unique genres?
+---
+
+WITH t1 AS (
+		SELECT 
+			customer."CustomerId",
+			customer."FirstName",
+			customer."LastName",
+			track."Name",
+			genre."GenreId"
+				FROM public."Customer" customer
+					INNER JOIN public."Invoice" invoice
+						ON customer."CustomerId" = invoice."CustomerId"
+					INNER JOIN public."InvoiceLine" invoice_line
+						ON invoice."InvoiceId" = invoice_line."InvoiceId"
+					INNER JOIN public."Track" track
+						ON invoice_line."TrackId" = track."TrackId"
+					INNER JOIN public."Genre" genre
+						ON genre."GenreId" = track."GenreId"
+		)
+		SELECT
+			"CustomerId",
+			COUNT (DISTINCT "GenreId") AS genres
+				FROM t1
+			GROUP BY "CustomerId"
+			ORDER BY genres DESC
+
+---
+Which genre has sold the most tracks?
+---
+
+SELECT
+	genre."Name",
+	COUNT (genre."Name")
+		FROM public."Invoice" AS invoice
+			JOIN public."InvoiceLine" AS invoice_line
+				ON invoice."InvoiceId" = invoice_line."InvoiceId"
+			JOIN public."Track" AS track
+				ON invoice_line."TrackId" = track."TrackId"
+			JOIN public."Genre" AS genre
+				ON track."GenreId" = genre."GenreId"
+			GROUP BY (genre."Name")
+			ORDER BY count DESC
+
+---
+Show a list of the total sales of each employee by year.
+---
+
+SELECT 
+	customer."SupportRepId",
+	EXTRACT (YEAR FROM invoice."InvoiceDate"),
+	SUM (invoice."Total")
+		FROM public."Invoice" AS invoice
+			JOIN public."Customer" AS customer
+				ON invoice."CustomerId" = customer."CustomerId"
+			GROUP BY(customer."SupportRepId", date_part)
+			ORDER BY (customer."SupportRepId")
+
+---
+Show Show a list of the total sales of each employee by quarter per year.
+---
+
+SELECT 
+	customer."SupportRepId",
+	EXTRACT (YEAR FROM invoice."InvoiceDate") AS sale_year,
+	EXTRACT (QUARTER FROM invoice."InvoiceDate") AS sale_quarter,
+	SUM (invoice."Total")
+		FROM public."Invoice" AS invoice
+			JOIN public."Customer" AS customer
+				ON invoice."CustomerId" = customer."CustomerId"
+			GROUP BY(customer."SupportRepId", sale_year, sale_quarter)
+			ORDER BY (customer."SupportRepId")
