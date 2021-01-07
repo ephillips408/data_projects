@@ -26,4 +26,19 @@ def create_heatmap(df, df_column, df_value):
 
     return basemap
 
-    
+def count_heatmap(df):
+
+    # Requires a column named 'geo_loc' with a tuple valued lat, long coordinate.
+    # Also requies an address column.
+
+    data = df.groupby('geo_loc').count().reset_index()
+    data['lat'] = data['geo_loc'].apply(lambda x: x[0])
+    data['long'] = data['geo_loc'].apply(lambda x: x[1])
+    data.drop('geo_loc', axis = 1)
+    data = data[['lat', 'long', 'address']]
+
+    basemap = generate_base_map()
+
+    HeatMap(data, zoom = 20, radius = 15).add_to(basemap)
+
+    return basemap
