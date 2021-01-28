@@ -1,6 +1,7 @@
 # Third party libraries
 import os
 import psycopg2 as pg2
+import pandas as pd
 
 # Third party methods
 from dotenv import load_dotenv
@@ -10,6 +11,9 @@ import query_strings
 
 # Initialize the database
 def db_init():
+
+    # Need this to use .env file
+    load_dotenv()
 
     conn = pg2.connect(
         database = os.getenv('POSTGRES_DATABASE'), 
@@ -43,8 +47,10 @@ def table_to_df():
     files_list = get_sql_files()
     df_dict = {}
     
-    for files in files_list:
-        print (files)
+    for file_name in files_list:
+        df_dict[file_name] = cur.execute(query_strings.queries_dict[file_name])
+
+    print (df_dict)      
 
 print (table_to_df())
 
