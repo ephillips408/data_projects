@@ -48,7 +48,11 @@ def table_to_df():
     df_dict = {}
     
     for file_name in files_list:
-        df_dict[file_name] = cur.execute(query_strings.queries_dict[file_name])
+        # Run the sql query from the query_strings dict.
+        cur.execute(query_strings.queries_dict[file_name])
+
+        # Run cur.fetchall() to get the data, then pass that as data for Pandas Dataframe.
+        df_dict[file_name] = pd.DataFrame(data = cur.fetchall())
 
     print (df_dict)      
 
