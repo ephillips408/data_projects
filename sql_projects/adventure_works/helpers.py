@@ -26,9 +26,9 @@ def db_init():
     return cursor
 
 # Get a list of .sql file names
-def get_sql_files():
+def get_sql_files(file_path):
 
-    target_directory = os.fsencode("queries/most_important_cities")
+    target_directory = os.fsencode(file_path)
     sql_file_list = []
     file_strings_list = []
 
@@ -44,7 +44,7 @@ def get_sql_files():
 def table_to_df():
 
     cur = db_init()
-    files_list = get_sql_files()
+    files_list = get_sql_files("queries/most_important_cities")
     df_dict = {}
     
     for file_name in files_list:
@@ -54,9 +54,4 @@ def table_to_df():
         # Run cur.fetchall() to get the data, then pass that as data for Pandas Dataframe.
         df_dict[file_name] = pd.DataFrame(data = cur.fetchall())
 
-    print (df_dict)      
-
-print (table_to_df())
-
-# Have file names as strings in file_strings_list
-# Want relevant df for each file name
+    return df_dict     
