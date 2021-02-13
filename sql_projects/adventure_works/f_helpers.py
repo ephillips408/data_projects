@@ -56,4 +56,6 @@ def table_to_df():
         # Run cur.fetchall() to get the data, then pass that as data for Pandas Dataframe.
         df_dict[file_name] = pd.DataFrame(data = cur.fetchall())
 
+    cur.close()    
+
     return df_dict     
