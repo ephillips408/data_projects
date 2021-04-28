@@ -1,4 +1,5 @@
 -- Gives sale count and sale amount of each product per customer.
+-- Counts the number of times each product appears in an order, not sum of quantity orderd.
 
 SELECT
 	custs.company_name,
