@@ -1,6 +1,7 @@
+-- Gives product sale count and total sale amount.
+
 -- Change 'Beverages' to any category_name as desired.
 -- Remove WHERE statement to see sales sum of all products.
--- Can order by supplier_id.
 
 SELECT
 	prods.product_name,

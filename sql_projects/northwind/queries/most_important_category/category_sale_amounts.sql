@@ -1,3 +1,5 @@
+-- Gives category sale count and sale amount.
+
 WITH t1 AS (
 	SELECT
  	cats.category_name,
@@ -12,6 +14,7 @@ WITH t1 AS (
 	
 	SELECT
 		category_name,
+		COUNT (category_name),
 		ROUND ( CAST ( SUM (unit_price * quantity) AS NUMERIC), 2) AS sale_total
 		FROM t1
 		GROUP BY category_name
