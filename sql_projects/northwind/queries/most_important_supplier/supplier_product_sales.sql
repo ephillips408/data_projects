@@ -12,4 +12,3 @@ SELECT
 			ON prods.supplier_id = sups.supplier_id
 	GROUP BY (sups.company_name, prods.product_name)
 	ORDER BY company_name
-			
