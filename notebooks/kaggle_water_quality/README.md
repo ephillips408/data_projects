@@ -1,1 +1,1 @@
-This notebook contains attempts at using classification models to determine if water is potable. The data for this notebook can be found (here).[https://www.kaggle.com/adityakadiwal/water-potability]
+This notebook contains attempts at using classification models to determine if water is potable. The data for this notebook can be found [here](https://www.kaggle.com/adityakadiwal/water-potability).
