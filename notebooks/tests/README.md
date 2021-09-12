@@ -5,3 +5,4 @@ The notebooks in this repo contain examples of statistical tests. Datasets may n
 #### Data:
 * [Cholesterol](https://www.sheffield.ac.uk/mash/statistics/datasets)
 * [Diet](https://www.sheffield.ac.uk/mash/statistics/datasets)
+* [Titanic](https://www.sheffield.ac.uk/mash/statistics/datasets)
