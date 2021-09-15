@@ -1,0 +1,22 @@
+new_column_values = [
+    'First Day of Week',
+    'Last Day of Week',
+    'Macro Region',
+    'State',
+    'Type of Product',
+    'Number of Stations',
+    'Unit of Measurement',
+    'Mean Market Value',
+    'Std Dev',
+    'Min Price Observed',
+    'Max Price Observed',
+    'Mean Price Margin',
+    'Variation Coefficient',
+    'Mean Distribution Price',
+    'Distribution Standard Deviation',
+    'Distribution Min Price',
+    'Distribution Max Price',
+    'Distribution Variation Coefficient',
+    'Month',
+    'Year'
+]
