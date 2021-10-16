@@ -1,3 +1,4 @@
 data/
 sql_projects/adventure_works/.env
+sql_projects/dataxp_airbnb/.env
 sql_projects/northwind/.env
