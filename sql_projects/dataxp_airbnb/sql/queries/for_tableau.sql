@@ -10,6 +10,7 @@ SELECT
 	bathrooms,
 	private_bath,
 	accommodates,
+	minimum_nights,
   number_of_reviews,
 	review_scores_rating,
 	instant_bookable
