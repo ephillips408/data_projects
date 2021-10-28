@@ -22,6 +22,7 @@ CREATE TABLE nyc_airbnb (
   description TEXT,
   accommodates SMALLINT,
   amenities TEXT[],
+  availability_365 SMALLINT,
   maximum_nights INTEGER,
   review_scores_rating DOUBLE PRECISION,
   review_scores_cleanliness DOUBLE PRECISION,

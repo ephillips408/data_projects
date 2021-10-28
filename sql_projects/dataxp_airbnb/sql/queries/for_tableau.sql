@@ -11,7 +11,10 @@ SELECT
 	private_bath,
 	accommodates,
 	minimum_nights,
-  number_of_reviews,
+    number_of_reviews,
 	review_scores_rating,
-	instant_bookable
+	instant_bookable,
+	availability_365,
+	ROUND (CAST (availability_365 AS NUMERIC) / 365, 2) AS availability_percent,
+	ROUND ((1 - CAST (availability_365 AS NUMERIC) / 365), 2) AS occupancy_rate
 		FROM nyc_airbnb
