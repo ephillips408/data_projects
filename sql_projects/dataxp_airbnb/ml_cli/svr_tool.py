@@ -82,4 +82,4 @@ if pred_choice == 'y':
   print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
 
 else:
-  print ('Thank you for using this tool.')  
+  print ('Thank you for using this tool.')
