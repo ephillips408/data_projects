@@ -6,6 +6,7 @@
 WITH t1 AS (
 	SELECT
 		id,
+		number_of_reviews,
 		number_of_reviews_ltm,
 		ROUND (CAST (availability_365 AS NUMERIC) / 365, 2) AS availability_percent,
 		ROUND ((1 - CAST (availability_365 AS NUMERIC) / 365), 2) AS occupancy_rate
