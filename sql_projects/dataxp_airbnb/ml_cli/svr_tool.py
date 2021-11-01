@@ -2,6 +2,9 @@ import helpers as help
 import constants as consts
 
 import numpy as np
+import pandas as pd
+import sys
+
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
@@ -24,6 +27,10 @@ neighborhood = str(input('Please type the neighborhood of choice, beginning with
 neigh_df = df[
   (df['neighborhood'] == borough) & 
   (df['neighborhood_group'] == neighborhood)].copy()
+
+if len(neigh_df.index < 50):
+  print ('There is not enough data to create a model.')
+  sys.exit(0)
 
 # Assume that at every listing has at least one bathroom
 neigh_df['bathrooms'].fillna(value = 1, inplace = True)
