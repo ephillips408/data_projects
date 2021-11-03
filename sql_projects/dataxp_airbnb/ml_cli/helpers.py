@@ -2,18 +2,20 @@ import os
 import psycopg2 as pg2
 from dotenv import load_dotenv
 
-import numpy as np
 import pandas as pd
 
 import constants as consts
 
-def get_data():
+def get_data(database, user, password):
+
+  # This functions relies on Postgres credentials that exist in a .env file.
+
   load_dotenv()
 
   conn = pg2.connect(
-      database = os.getenv('POSTGRES_DATABASE'),
-      user = os.getenv('POSTGRES_USER'),
-      password = os.getenv('POSTGRES_PASSWORD')
+      database = os.getenv(database),
+      user = os.getenv(user),
+      password = os.getenv(password)
   )
 
   cursor = conn.cursor()

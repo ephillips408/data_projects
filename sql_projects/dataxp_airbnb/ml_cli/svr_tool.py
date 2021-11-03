@@ -17,7 +17,7 @@ print ('Welcome to the SVR commmand line interface!')
 print ('Querying data...')
 
 # Gets the data from Postgres
-df = help.get_data()
+df = help.get_data('POSTGRES_DATABASE', 'POSTGRES_USER', 'POSTGRES_PASSWORD')
 df.rename(columns = consts.columns, inplace = True)
 
 # Cleans the data
@@ -28,7 +28,7 @@ neigh_df = df[
   (df['neighborhood'] == borough) & 
   (df['neighborhood_group'] == neighborhood)].copy()
 
-if len(neigh_df.index < 50):
+if len(neigh_df) < 50:
   print ('There is not enough data to create a model.')
   sys.exit(0)
 
