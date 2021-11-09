@@ -8,3 +8,15 @@ keep_cols = [
   'Latitude',
   'Longitude'
 ]
+
+new_col_values = [
+  'unique_key',
+  'created_date',
+  'created_time',
+  'agency',
+  'complaint_type',
+  'location_type',
+  'incident_zip',
+  'latitude',
+  'longitude'
+]
