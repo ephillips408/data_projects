@@ -2,3 +2,4 @@ data/
 sql_projects/adventure_works/.env
 sql_projects/dataxp_airbnb/.env
 sql_projects/northwind/.env
+sql_projects/nyc_housing_rec/.env
